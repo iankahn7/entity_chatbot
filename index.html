@@ -13,6 +13,7 @@
       overflow: hidden;
       padding: 0;
       box-sizing: border-box;
+      position: relative;
     }
 
     #title {
@@ -34,10 +35,6 @@
       right: 10px;
       width: auto;
       height: 300px;
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      border-radius: 10px;
-      padding: 20px;
       display: flex;
       flex-direction: column;
       box-shadow: 0 0 10px #00ff00;
@@ -48,6 +45,10 @@
       flex: 1;
       overflow-y: scroll;
       margin-bottom: 20px;
+    }
+
+    #chatMessages div {
+      color: white;
     }
 
     #chatInput {
@@ -78,44 +79,21 @@
       background: #007700;
     }
 
-    /* Media queries for responsiveness */
-    @media (max-width: 768px) {
-      #title {
-        font-size: 2.5rem;
-      }
-
-      #chatWindow {
-        width: 100%;
-        height: 250px;
-        bottom: 10px;
-      }
-
-      #inputField {
-        font-size: 1rem;
-      }
-
-      #sendButton {
-        font-size: 1rem;
-        padding: 8px 12px;
-      }
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #00ff00;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 1;
+      animation: particleMove 2s forwards;
     }
 
-    @media (max-width: 480px) {
-      #title {
-        font-size: 2rem;
-      }
-
-      #chatWindow {
-        height: 200px;
-      }
-
-      #inputField {
-        font-size: 0.9rem;
-      }
-
-      #sendButton {
-        font-size: 0.9rem;
-        padding: 6px 10px;
+    @keyframes particleMove {
+      to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
       }
     }
   </style>
@@ -123,7 +101,6 @@
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Set up scene, camera, and renderer (3D globe)
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
@@ -146,25 +123,20 @@
 
     animate();
 
-    // Text-to-speech for website name with Bitcrush effect
     function speakWebsiteName() {
-      const text = "welcome to world_exe, please enter a response in the terminal to get started.";  // The website name you want to say
+      const text = "welcome to the entity.,,,,,,, please enter a response in the terminal to get started.";
       const utterance = new SpeechSynthesisUtterance(text);
-      speechSynthesis.speak(utterance);  // Speak the name directly
+      speechSynthesis.speak(utterance);
     }
 
-    // Trigger text-to-speech when the page loads
     window.onload = function() {
       speakWebsiteName();
     };
 
-    // Chatbot functionality with command-line style
     const chatbotMessages = [
       "Welcome to world_exe Terminal...",
       "Type 'help' for available commands.",
     ];
-
-    let chatIndex = 0;
 
     const chatWindow = document.createElement('div');
     chatWindow.id = 'chatWindow';
@@ -192,28 +164,55 @@
       const message = document.createElement('div');
       message.innerText = content;
       message.style.textAlign = fromUser ? 'right' : 'left';
+      message.style.color = fromUser ? '#00ff00' : 'white';
       chatMessages.appendChild(message);
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
-      // Text-to-speech for whatever is printed
       const utterance = new SpeechSynthesisUtterance(content);
       speechSynthesis.speak(utterance);
     }
 
-    // Typewriter effect with text-to-speech for entire words
     function typeWriter(element, text, speed) {
       let i = 0;
-      let words = text.split(' '); // Split text into words
+      const audio = new Audio('audio/button-38.mp3'); 
+
+      function playSFX() {
+        audio.currentTime = 0;
+        audio.play();
+      }
+
+      let words = text.split(' ');
       let interval = setInterval(function() {
         element.innerHTML += words[i] + ' ';
+        playSFX();
         i++;
         if (i === words.length) {
           clearInterval(interval);
-          // Speak the entire text after typing is complete
-          const utterance = new SpeechSynthesisUtterance(text);
-          speechSynthesis.speak(utterance);
         }
       }, speed);
+    }
+
+    // Mouse particle effect
+    document.addEventListener('mousemove', (event) => {
+      createParticle(event.clientX, event.clientY);
+    });
+
+    function createParticle(x, y) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      document.body.appendChild(particle);
+      particle.style.left = `${x - 5}px`;
+      particle.style.top = `${y - 5}px`;
+
+      // Randomize the particle movement
+      const randX = (Math.random() - 0.5) * 200;
+      const randY = (Math.random() - 0.5) * 200;
+      particle.style.setProperty('--x', `${randX}px`);
+      particle.style.setProperty('--y', `${randY}px`);
+
+      setTimeout(() => {
+        particle.remove();
+      }, 3000); // Particle duration before it disappears
     }
 
     sendButton.addEventListener('click', () => {
@@ -222,7 +221,6 @@
         addMessage(userMessage, true);
         inputField.value = '';
 
-        // Simple chatbot logic with hidden commands
         let response = "Error: Command not found.";
         if (userMessage.toLowerCase() === 'help') {
           response = "Commands:\n'help' - List of commands\n 'globe' - Get information about the globe";
@@ -232,19 +230,23 @@
           response = "The globe is a 3D rotating model. You can interact with it using your mouse.";
         }
 
-        // Simulate delayed typing
         setTimeout(() => {
-          addMessage(response, false);
-          typeWriter(chatMessages.lastElementChild, response, 80); // Type out response
+          const messageElement = document.createElement('div');
+          messageElement.innerText = response;
+          messageElement.style.textAlign = 'left';
+          messageElement.style.color = 'white';
+          chatMessages.appendChild(messageElement);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          typeWriter(messageElement, response, 120);
         }, 500);
       }
     });
 
-    // Detect Enter key press and trigger message send
     inputField.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-        event.preventDefault();  // Prevents the default behavior of creating a new line in the input field
-        sendButton.click();  // Trigger the click event for the send button
+        event.preventDefault();
+        sendButton.click();
       }
     });
 
