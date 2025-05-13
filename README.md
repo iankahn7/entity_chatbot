@@ -1,14 +1,81 @@
-entity chatbot
-This is a chatbot project that I've been working on, inspired by the eerie and retro aesthetic of the 1970s movie Alien. The design and functionality aim to evoke a sense of mystery and technological isolation, combining command-line style interactions with a sleek, sci-fi inspired interface.
+# 👁️‍🗨️ ENTITY CHATBOT
 
-Features
-Chatbot Interface: Users can enter text commands into the terminal-style chat window to interact with the chatbot.
-3D Globe: A rotating 3D model of Earth is displayed in the background, adding to the futuristic atmosphere.
-Text-to-Speech: Text-to-speech functionality is used throughout the site to enhance the immersive experience.
-Command System: Commands like help, globe, and show secrets trigger specific responses, creating an interactive, exploration-driven experience.
-Aesthetic
-The site is designed with a strong Alien movie influence, featuring:
+**Entity** is a chatbot project inspired by the eerie, retro-futuristic aesthetic of the 1979 film *Alien*. Designed to evoke feelings of mystery, technological isolation, and deep-space tension, this chatbot offers a **command-line style interface** wrapped in a visually immersive sci-fi atmosphere.
 
-A dark color scheme (black and green) reminiscent of the movie's tone.
-A retro, terminal-based interface that channels the feel of classic sci-fi computer systems.
-Glowing text and shadow effects to simulate the film's distinctive visual atmosphere.
+---
+
+## 🧠 Overview
+
+- **Type:** Web-based AI Chatbot Interface  
+- **Tech Stack:** HTML, CSS, JavaScript, WebGL  
+- **Vibe:** Retro sci-fi, terminal-based UI, atmospheric immersion  
+- **Inspiration:** *Alien (1979)*, 70s/80s sci-fi UIs, HAL 9000
+
+---
+
+## ✨ Features
+
+### 💬 Chatbot Interface  
+Users enter **typed commands** into a terminal-style window, simulating interactions with an AI from a forgotten space station.
+
+### 🌍 3D Globe  
+A slowly rotating **3D Earth model** sits behind the chat terminal, reinforcing the lonely, isolated space-vessel feeling.
+
+### 🔊 Text-to-Speech Integration  
+The chatbot **speaks its responses aloud**, heightening immersion and creating a sense of a responsive, sentient system.
+
+### ⌨️ Command System  
+Specific typed commands return unique responses:
+
+- `help` – display available commands  
+- `globe` – highlight the rotating Earth  
+- `show secrets` – ???  
+- `clear` – reset the terminal view  
+- `exit` – simulate a shutdown or end sequence
+
+---
+
+## 🎨 Aesthetic & Design
+
+The visual and interaction design is heavily inspired by the **Alien franchise's computer systems** and the analog feel of 70s/80s tech:
+
+- 🖤 **Dark theme** with glowing neon green text  
+- 🖥️ **Retro terminal** with monospaced fonts and blinking cursors  
+- 🪐 Shadowed, dim-lit interface elements for a **claustrophobic, space station vibe**  
+- 🧬 Occasional static, scanlines, or screen glitch effects (optional or planned)
+
+---
+
+## 🛠️ Built With
+
+| Technology       | Purpose                          |
+|------------------|----------------------------------|
+| **HTML/CSS/JS**  | Interface, interaction logic     |
+| **Three.js**     | 3D Globe rendering               |
+| **Web Speech API** | Text-to-speech functionality |
+| **Custom CSS Animations** | Terminal FX, glow, glitches |
+
+---
+
+## 🧪 Planned Features / Roadmap
+
+- ❓ Enhanced secret system with dynamic AI responses  
+- 🔒 "Access level" system that unlocks deeper commands over time  
+- 📡 Add eerie background SFX (radar pings, static, distant alerts)  
+- 👁️ Webcam integration for face detection or visual surprises  
+- 🧾 Chat logging and export  
+- 📟 Expandable terminal window or multiple modes  
+
+---
+
+## 🧑‍💻 Developer
+
+**Ian Kahn**  
+Creator, Designer, and Developer
+
+---
+
+## 📄 License
+
+MIT License — Feel free to fork and modify for personal or academic use.
+
